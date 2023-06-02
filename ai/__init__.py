@@ -1,10 +1,8 @@
-import logging
 import string
 from datetime import datetime
 
 import keras
 import numpy as np
-import tensorflow
 from keras.callbacks import EarlyStopping
 from keras.losses import CategoricalCrossentropy
 from keras.optimizers import Adam
@@ -87,6 +85,6 @@ def train_model(model_class: type, dataset: Dataset, max_length: int):
     train_x, train_y, test_x, test_y = model.prepare_data(dataset, max_length=max_length, num_classes=len(LABEL_LOOKUP))
 
     model.model.fit(train_x, train_y, validation_data=(test_x, test_y), callbacks=[early_stopping], batch_size=128 * 4,
-                    epochs=1)
+                    epochs=250)
     loss, acc = model.evaluate_model(test_x, test_y)
     return model, loss, acc
